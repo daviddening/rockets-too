@@ -16,11 +16,16 @@ export class MainMenu extends Scene
 
     create ()
     {
-        this.background = this.add.image(512, 384, 'background');
+        const centerX = this.scale.width / 2;
+        const centerY = this.scale.height / 2;
+        this.background = this.add.image(centerX, centerY, 'background')
+            .setDisplaySize(this.scale.width, this.scale.height);
 
-        this.logo = this.add.image(512, 300, 'logo').setDepth(100);
+        this.logo = this.add.image(centerX, centerY - 80, 'logo')
+            .setScale(Math.min(1, this.scale.width / 512))
+            .setDepth(100);
 
-        this.title = this.add.text(512, 460, 'Main Menu', {
+        this.title = this.add.text(centerX, centerY + 100, 'Main Menu', {
             fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
             stroke: '#000000', strokeThickness: 8,
             align: 'center'
@@ -57,8 +62,8 @@ export class MainMenu extends Scene
         {
             this.logoTween = this.tweens.add({
                 targets: this.logo,
-                x: { value: 750, duration: 3000, ease: 'Back.easeInOut' },
-                y: { value: 80, duration: 1500, ease: 'Sine.easeOut' },
+                x: { value: this.scale.width * 0.75, duration: 3000, ease: 'Back.easeInOut' },
+                y: { value: this.scale.height * 0.1, duration: 1500, ease: 'Sine.easeOut' },
                 yoyo: true,
                 repeat: -1,
                 onUpdate: () => {
